@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: 0;
+    }
+    body{
+        background-color: rgb(223, 223, 223);
+        font-size: larger;
+        font-weight: bold;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    h2 , h1{
+        text-align: center;
+    }
+    .blue{
+        color: blue;
+    }
+    .red{
+        color: red;
+    }
+    .green{
+        color: green;
+    }
+
+    .container {
+
+        padding: 3rem;
+        
+        align-items: center;
+        color: black;
+ 
+
+    }
+
+    .details {
+        display: flex;
+        justify-content: space-around;
+    }
+    @media (max-width:600px) {
+        *{
+            overflow-x: hidden;
+        }
+    .container{
+        
+    }
+    .details {
+        
+        display: inline-block;
+    }
+    .item{
+        margin: 1rem;
+    }
+    .item{
+        height: 15rem !important;
+        width: 15rem !important;
+    }
+    }
+
+    .item {
+        text-align: center;
+        height: 20rem;
+        width: 20rem;
+        background: rgba(0, 185, 255, 0.21);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5.1px);
+        border: 1px solid rgba(0, 185, 255, 1);
+    }
+    .item0 { 
+        background: rgba(0, 185, 255, 0.21);
+        border: 1px solid rgba(0, 185, 255, 1);
+    }
+    .item h2{
+        margin-top: 4rem;
+    }
+
+    .item3 {
+      
+        background: rgba(156, 245, 105, 0.356);
+        border: 1px solid rgb(44, 121, 0);
+    }
+
+    .item2 {
+     
+        background: rgba(255, 0, 0, 0.21);
+        border: 1px solid rgba(255, 0, 0, 1);
+    }
+    marquee{
+        position: relative;
+        font-size: larger;
+        color: rgb(204, 0, 0);
+        bottom: 8%;
+    }
+    #TotalRecovered ,#TotalDeaths,#TotalConfirmed{
+        margin-top: 2rem;
+    }
+    .parent{
+       margin: 2rem;
+        text-align: center ;
+
+        
+    }
+    .btn{
+     
+        text-decoration: none;
+        color: blue;
+        padding: 1rem;
+        border: 2px solid rgba(0, 185, 255, 1);
+        border-radius: 10px;
+    }
+    .btn:hover{
+  
+        text-decoration: none;
+        color:white;
+        background-color: rgba(0, 185, 255, 1);
+        padding: 1rem;
+        border: 1px solid rgba(0, 185, 255, 1);
+    }
+</style>
+
+<body>
+
+    <div class="container">
+        <h1>COVID-19 Status And Report</h1>
+        <h2 class="country" id="country"></h2>
+        <div class="details">
+            <div class="item item0 blue">
+                <h2>Confirm Case</h2>
+                <i class="fas fa-3x fa-calendar-check"></i>
+                <div id="TotalConfirmed"></div>
+            </div>
+            <div class="item item2 red">
+                <h2>Total Deaths</h2>
+                <i class="fas fa-3x fa-skull-crossbones"></i>
+                <div id="TotalDeaths"></div>
+            </div>
+            <div class="item item3 green">
+                <h2>Recovered</h2>
+                <i class="fas fa-3x fa-procedures"></i>
+                <div id="TotalRecovered"></div>
+            </div>
+
+        </div>
+    
+        <marquee behavior="scroll" direction="lelf">Stay Home & Stay Safe</marquee>
+    </div>
+    <div class="parent">
+
+        <a class="btn" href="https://selfregistration.cowin.gov.in/">Download Your Vaccination Certificate</a>
+    </div>
+
+
+    <script>
+
+        async function getCovidapi() {
+            const jsondata = await fetch('https://api.covid19api.com/summary');
+            const jsdata = await jsondata.json();
+            const data = (jsdata.Countries[76]);
+            document.getElementById("TotalConfirmed").innerHTML = `${data.TotalConfirmed}`;
+            document.getElementById("country").innerHTML = `${data.Country}`;
+            document.getElementById("TotalDeaths").innerHTML = `${data.TotalDeaths}`;
+            document.getElementById("TotalRecovered").innerHTML = `${data.TotalRecovered}`;
+            console.log(data);
+
+        }
+
+        getCovidapi();
+    </script>
+</body>
+
+</html>
